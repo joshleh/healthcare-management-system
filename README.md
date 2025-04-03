@@ -67,8 +67,4 @@ This project is a relational database system designed to manage patients, doctor
 - Include lab results & medications tables
 - Build a dashboard using Python (Streamlit or Flask)
 
----
 
-## Contact
-
-For questions or feedback, feel free to reach out on GitHub!
