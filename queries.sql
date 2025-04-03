@@ -9,7 +9,7 @@ SELECT
     d.Specialization
 FROM Appointments a
 JOIN Doctors d ON a.DoctorID = d.DoctorID
-WHERE a.PatientID = 1
+WHERE a.PatientID = 109
 ORDER BY a.Date, a.Time;
 
 -- 2. Obtains daily appointment count
