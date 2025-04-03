@@ -22,8 +22,7 @@ This project is a relational database system designed to manage patients, doctor
 | `MedicalProcedures` | Procedures linked to appointments               |
 | `Billing`           | Tracks charges per patient                      |
 
-![ER Diagram Placeholder](#)  
-*(Insert an ERD image generated from dbdiagram.io or drawSQL)*
+![ER Diagram](er_diagram.png)
 
 ---
 
