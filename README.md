@@ -57,7 +57,7 @@ Dataset used: https://www.kaggle.com/datasets/anouskaabhisikta/healthcare-manage
 ## How to Use
 
 1. Load `schema.sql` into your SQL environment to create the tables.
-2. (Optional) Use `insert_data.sql` to load test data.
+2. Use `insert_data.sql` to load test data.
 3. Run `queries.sql` to see sample insights and reports.
 
 ---
