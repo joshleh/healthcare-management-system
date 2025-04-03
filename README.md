@@ -2,6 +2,7 @@
 
 This project is a relational database system designed to manage patients, doctors, appointments, medical procedures, and billing data in a healthcare environment. Built entirely using SQL, it features a normalized schema, real-world query examples, and testable data flows that simulate hospital operations.
 
+Dataset used: https://www.kaggle.com/datasets/anouskaabhisikta/healthcare-management-system
 ---
 
 ## Project Structure
