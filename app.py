@@ -6,7 +6,7 @@ st.set_page_config(page_title="Healthcare SQL Dashboard", layout="wide")
 st.title("🏥 Healthcare Management Dashboard")
 st.markdown("Explore SQL-driven insights from your healthcare system")
 
-# Sidebar
+# Sidebar Navigation
 st.sidebar.title("Navigation")
 query = st.sidebar.radio("Select a View", [
     "Appointments for Patient",
@@ -21,18 +21,21 @@ query = st.sidebar.radio("Select a View", [
     "Billing by Procedure & Date"
 ])
 
-# Load CSVs
-data_dir = "data"
-q1 = pd.read_csv(f"{data_dir}/query_1_appointments_for_patientID109.csv")
-q2 = pd.read_csv(f"{data_dir}/query_2_daily_appointment_count.csv")
-q3 = pd.read_csv(f"{data_dir}/query_3_most_active_doctors.csv")
-q4 = pd.read_csv(f"{data_dir}/query_4_total_billing_per_patient.csv")
-q5 = pd.read_csv(f"{data_dir}/query_5_most_common_medical_procedures.csv")
-q6 = pd.read_csv(f"{data_dir}/query_6_upcoming_appointments.csv")
-q7 = pd.read_csv(f"{data_dir}/query_7_patients_seen_multiple_doctors.csv")
-q8 = pd.read_csv(f"{data_dir}/query_8_doctor_billing_performance.csv")
-q9 = pd.read_csv(f"{data_dir}/query_9_unusual_billing_items.csv")
-q10 = pd.read_csv(f"{data_dir}/query_10_billing_by_procedure_and_date.csv")
+# Define paths
+raw_data_dir = "data"
+query_results_dir = "query_results"
+
+# Load Query Result CSVs
+q1 = pd.read_csv(f"{query_results_dir}/query_1_appointments_for_patientID109.csv")
+q2 = pd.read_csv(f"{query_results_dir}/query_2_daily_appointment_count.csv")
+q3 = pd.read_csv(f"{query_results_dir}/query_3_most_active_doctors.csv")
+q4 = pd.read_csv(f"{query_results_dir}/query_4_total_billing_per_patient.csv")
+q5 = pd.read_csv(f"{query_results_dir}/query_5_most_common_medical_procedures.csv")
+q6 = pd.read_csv(f"{query_results_dir}/query_6_upcoming_appointments.csv")
+q7 = pd.read_csv(f"{query_results_dir}/query_7_patients_seen_multiple_doctors.csv")
+q8 = pd.read_csv(f"{query_results_dir}/query_8_doctor_billing_performance.csv")
+q9 = pd.read_csv(f"{query_results_dir}/query_9_unusual_billing_items.csv")
+q10 = pd.read_csv(f"{query_results_dir}/query_10_billing_by_procedure_and_date.csv")
 
 # Views
 if query == "Appointments for Patient":
@@ -73,4 +76,5 @@ elif query == "Unusual Billing Items":
 
 elif query == "Billing by Procedure & Date":
     st.subheader("Revenue by Procedure Over Time")
-    st.line_chart(q10.pivot(index="Date", columns="ProcedureName", values="TotalCharged").fillna(0))
+    chart_data = q10.pivot(index="Date", columns="ProcedureName", values="TotalCharged").fillna(0)
+    st.line_chart(chart_data)
