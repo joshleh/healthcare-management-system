@@ -68,6 +68,5 @@ Dataset used: https://www.kaggle.com/datasets/anouskaabhisikta/healthcare-manage
 
 - Add user authentication (admin vs. patient)
 - Include lab results & medications tables
-- Build a dashboard using Python (Streamlit or Flask)
 
 
