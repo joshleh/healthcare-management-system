@@ -2,6 +2,82 @@ const state = {
   facility: "all",
   specialty: "all",
   patientId: "",
+  referenceDate: "",
+};
+
+const DEMO_SCENARIOS = {
+  cardiology: {
+    label: "Cardiology follow-up",
+    values: {
+      firstName: "Taylor",
+      lastName: "Mills",
+      email: "taylor.mills@demo.local",
+      dateOfBirth: "1987-04-17",
+      sex: "Female",
+      city: "San Francisco",
+      stateCode: "CA",
+      facilityId: "1",
+      specialty: "Cardiology",
+      visitType: "Chronic Care Review",
+      appointmentOffsetDays: 2,
+      appointmentTime: "08:30",
+      status: "Confirmed",
+      procedureName: "Cardiac follow-up evaluation",
+      insuranceId: "1",
+      billAmount: "12500",
+      medicationId: "2",
+      labFlag: "Attention",
+      labTestName: "BNP",
+    },
+  },
+  oncology: {
+    label: "Oncology infusion review",
+    values: {
+      firstName: "Ariana",
+      lastName: "Cole",
+      email: "ariana.cole@demo.local",
+      dateOfBirth: "1979-09-22",
+      sex: "Female",
+      city: "San Jose",
+      stateCode: "CA",
+      facilityId: "3",
+      specialty: "Oncologist",
+      visitType: "Procedure Follow-up",
+      appointmentOffsetDays: 1,
+      appointmentTime: "10:15",
+      status: "Completed",
+      procedureName: "Infusion therapy reassessment",
+      insuranceId: "4",
+      billAmount: "28400",
+      medicationId: "4",
+      labFlag: "Critical",
+      labTestName: "Hemoglobin",
+    },
+  },
+  "womens-health": {
+    label: "Women's imaging pathway",
+    values: {
+      firstName: "Naomi",
+      lastName: "Chen",
+      email: "naomi.chen@demo.local",
+      dateOfBirth: "1992-11-08",
+      sex: "Female",
+      city: "Oakland",
+      stateCode: "CA",
+      facilityId: "2",
+      specialty: "Radiology",
+      visitType: "Procedure Follow-up",
+      appointmentOffsetDays: 4,
+      appointmentTime: "13:45",
+      status: "Scheduled",
+      procedureName: "Diagnostic imaging follow-up",
+      insuranceId: "5",
+      billAmount: "4600",
+      medicationId: "12",
+      labFlag: "None",
+      labTestName: "Basic Metabolic Panel",
+    },
+  },
 };
 
 const elements = {
@@ -18,6 +94,7 @@ const elements = {
   adminSpecialty: document.querySelector("#admin-specialty"),
   adminInsurance: document.querySelector("#admin-insurance"),
   adminMedication: document.querySelector("#admin-medication"),
+  adminScenarios: document.querySelector("#admin-scenarios"),
 };
 
 init();
@@ -30,6 +107,7 @@ async function init() {
     if (options.featuredPatients[0]) {
       state.patientId = String(options.featuredPatients[0].id);
     }
+    state.referenceDate = options.referenceDate;
     document.querySelector("#reference-date").textContent = formatDate(options.referenceDate);
     const appointmentDateField = elements.adminForm.querySelector('input[name="appointmentDate"]');
     appointmentDateField.value = options.referenceDate;
@@ -132,6 +210,15 @@ function bindEvents() {
     await submitAdminForm();
   });
 
+  elements.adminScenarios.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-scenario]");
+    if (!button) {
+      return;
+    }
+
+    applyScenario(button.dataset.scenario);
+  });
+
   document.addEventListener("click", (event) => {
     const patientButton = event.target.closest("[data-patient-id]");
     if (patientButton) {
@@ -204,9 +291,32 @@ async function submitAdminForm() {
 
 async function refreshOptionsAndDashboard() {
   const options = await fetchJson("/api/options");
+  state.referenceDate = options.referenceDate;
   hydrateFilters(options);
   hydrateFeaturedPatients(options.featuredPatients);
   await loadDashboard();
+}
+
+function applyScenario(key) {
+  const scenario = DEMO_SCENARIOS[key];
+  if (!scenario) {
+    return;
+  }
+
+  const values = { ...scenario.values };
+  values.appointmentDate = scenarioDate(values.appointmentOffsetDays ?? 0);
+  delete values.appointmentOffsetDays;
+
+  Object.entries(values).forEach(([fieldName, value]) => {
+    const field = elements.adminForm.elements.namedItem(fieldName);
+    if (!field) {
+      return;
+    }
+
+    field.value = value;
+  });
+
+  elements.adminFeedback.textContent = `${scenario.label} loaded. Review the fields, then create the encounter.`;
 }
 
 async function runPatientSearch() {
@@ -575,6 +685,13 @@ function formatDateTime(value) {
     hour: "numeric",
     minute: "2-digit",
   });
+}
+
+function scenarioDate(offsetDays) {
+  const baseDate = state.referenceDate || new Date().toISOString().slice(0, 10);
+  const date = new Date(`${baseDate}T00:00:00`);
+  date.setDate(date.getDate() + offsetDays);
+  return date.toISOString().slice(0, 10);
 }
 
 function truncate(value, size) {

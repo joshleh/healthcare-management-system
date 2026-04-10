@@ -2,6 +2,8 @@
 
 An interactive healthcare operations analytics demo built for portfolio presentation. The project now combines a normalized healthcare schema, seeded operational data, a zero-dependency Python backend, and a hospital-style frontend for exploring care delivery, billing, facilities, labs, medications, and patient journeys.
 
+![Hospital analytics dashboard preview](docs/assets/dashboard-preview.png)
+
 ## What It Is Now
 
 This is no longer just a SQL exercise or a CSV viewer. It is positioned as a lightweight hospital analytics product demo with:
@@ -17,6 +19,12 @@ This is no longer just a SQL exercise or a CSV viewer. It is positioned as a lig
 ## Demo Experience
 
 The main experience is the interactive app served by `app.py`.
+
+### Portfolio preview
+
+- Quick-load demo scenarios in the admin panel create realistic patient journeys without manual typing
+- Featured patients and live filters keep the dashboard useful even when a narrow slice has no seeded data
+- A lightweight smoke test validates the core API routes and demo-admin write flow before deployment
 
 ### Public link strategy
 
@@ -92,7 +100,8 @@ If you want to inspect the model and reporting layer directly:
 
 - Free to run locally: yes
 - Fast to load: yes, because the app uses a small SQLite database and a lightweight frontend
-- Public hosting setup included: yes, via GitHub Pages for `docs/` and Render for the interactive app
+- Public hosting setup included: GitHub Pages workflow for `docs/`
+- Interactive hosting setup: not configured yet, but the Python app is ready for a second deployment target later
 
 For a purely static fallback, the `docs/` folder can still be hosted on GitHub Pages.
 
@@ -117,6 +126,16 @@ For now, the priority is the static showcase:
 - fast first impression
 - zero cold starts
 - clean portfolio URL
+
+## Smoke Test
+
+Run the quick verification script before pushing major changes:
+
+```bash
+python3 scripts/smoke_test.py
+```
+
+The smoke test boots the app on a temporary local port, checks the core JSON endpoints, creates a demo encounter through the admin API, confirms the new patient is searchable, and then shuts the server down.
 
 ## Dataset Source
 
