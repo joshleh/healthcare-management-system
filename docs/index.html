@@ -3,230 +3,307 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CareVista Analytics Demo</title>
+    <title>Meridian Hospital Analytics | Static Portfolio Showcase</title>
     <meta
       name="description"
-      content="A fast static demo for a healthcare management SQL project, featuring KPI summaries, query-led analytics, and a roadmap for future expansion."
+      content="A GitHub Pages-ready hospital analytics showcase that mirrors the Meridian portfolio demo with static charts, schema context, and deployment guidance."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="site-shell">
-      <aside class="rail">
-        <div>
-          <p class="eyebrow">Healthcare SQL Demo</p>
-          <h1>CareVista</h1>
-          <p class="rail-copy">
-            A static showcase for the database, reporting, and analytics story behind this project.
-          </p>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-main">
+          <div>
+            <p class="sidebar-kicker">Static Portfolio Edition</p>
+            <h1>Meridian Hospital Analytics</h1>
+            <p class="sidebar-copy">
+              A fast GitHub Pages showcase for the hospital analytics project, styled to match the interactive Meridian dashboard while staying free to host.
+            </p>
+          </div>
+
+          <nav class="sidebar-nav" aria-label="Sections">
+            <a href="#overview">Overview</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#schema">Schema</a>
+            <a href="#roadmap">Deployment</a>
+          </nav>
+
+          <div class="sidebar-actions">
+            <a class="sidebar-button" href="#analytics">View showcase</a>
+            <a
+              class="sidebar-button sidebar-button-secondary"
+              href="https://github.com/joshleh/healthcare-management-system#readme"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read project guide
+            </a>
+          </div>
         </div>
 
-        <nav class="section-nav" aria-label="Sections">
-          <a href="#overview">Overview</a>
-          <a href="#analytics">Analytics</a>
-          <a href="#schema">Schema</a>
-          <a href="#roadmap">Roadmap</a>
-        </nav>
-
-        <div class="rail-note">
-          <span>Free to host</span>
-          <strong>GitHub Pages, Netlify, or Cloudflare Pages</strong>
+        <div class="sidebar-footer">
+          <div class="sidebar-panel">
+            <p class="panel-label">Pages source</p>
+            <p class="sidebar-copy">
+              GitHub Pages should publish the <code>docs/</code> folder from the <code>main</code> branch.
+            </p>
+          </div>
         </div>
       </aside>
 
-      <main>
-        <section class="hero" id="overview">
-          <div class="hero-copy">
-            <p class="eyebrow">Portfolio-Ready Version</p>
-            <h2>Turn a quick SQL project into a fast healthcare analytics demo.</h2>
-            <p class="hero-text">
-              This version keeps the project lightweight and free to run by serving precomputed query outputs
-              through a polished static site. No database server is required for the demo experience.
+      <main class="workspace">
+        <header class="workspace-header" id="overview">
+          <div>
+            <p class="eyebrow">Hospital Portfolio Showcase</p>
+            <h2>The static Meridian site now matches the hospital analytics product direction.</h2>
+            <p class="header-copy">
+              This Pages version keeps the hospital look, portfolio framing, and reporting story intact while using static exports for instant load and zero backend hosting.
             </p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#analytics">Portfolio Showcase</a>
-              <a class="button button-secondary" href="#roadmap">Interactive App Next</a>
-              <a class="button button-secondary" href="https://github.com/joshleh/healthcare-management-system#readme" target="_blank" rel="noreferrer">Read the Project Guide</a>
+              <a class="ghost-button primary-button" href="#analytics">Explore the showcase</a>
+              <a class="ghost-button" href="#roadmap">See deployment plan</a>
             </div>
           </div>
 
-          <div class="hero-panel">
-            <div class="hero-panel-copy">
-              <span>Current project focus</span>
-              <strong>SQL modeling, reporting, and healthcare operations storytelling</strong>
+          <div class="status-card">
+            <span class="status-dot"></span>
+            <div>
+              <p class="panel-label">Static deployment</p>
+              <strong>Publish from <code>main/docs</code></strong>
             </div>
-            <div class="metric-strip">
-              <div>
-                <span id="metric-patients">1,000</span>
-                <small>patients</small>
-              </div>
-              <div>
-                <span id="metric-appointments">1,000</span>
-                <small>appointments</small>
-              </div>
-              <div>
-                <span id="metric-billing">$510.3M</span>
-                <small>billed volume</small>
-              </div>
-            </div>
+          </div>
+        </header>
+
+        <section class="toolbar">
+          <div class="toolbar-note">
+            <p class="panel-label">Why this version exists</p>
+            <p>
+              The interactive Python dashboard is still the richer product demo, but this Pages version gives you a fast, public portfolio link that visually matches the same Meridian hospital identity.
+            </p>
+          </div>
+
+          <div class="toolbar-actions">
+            <p class="toolbar-meta">Best split: static first-click showcase now, interactive public host next.</p>
           </div>
         </section>
 
-        <section class="stats-band">
-          <article>
-            <p class="label">Top Doctor</p>
-            <h3 id="top-doctor">Loading...</h3>
-            <p id="top-doctor-detail" class="muted"></p>
+        <section class="metric-row">
+          <article class="metric-card">
+            <p class="metric-label">Seeded patients</p>
+            <h3 id="metric-patients">--</h3>
+            <p class="metric-detail">Portfolio dataset size represented in the exported SQL results.</p>
           </article>
-          <article>
-            <p class="label">Top Procedure</p>
-            <h3 id="top-procedure">Loading...</h3>
-            <p id="top-procedure-detail" class="muted"></p>
+
+          <article class="metric-card">
+            <p class="metric-label">Appointments</p>
+            <h3 id="metric-appointments">--</h3>
+            <p class="metric-detail">Encounter volume used to tell the care-operations story.</p>
           </article>
-          <article>
-            <p class="label">Busiest Day</p>
-            <h3 id="busiest-day">Loading...</h3>
-            <p id="busiest-day-detail" class="muted"></p>
+
+          <article class="metric-card">
+            <p class="metric-label">Billed volume</p>
+            <h3 id="metric-billing">--</h3>
+            <p class="metric-detail">Static Pages-ready KPI taken from exported reporting outputs.</p>
+          </article>
+
+          <article class="metric-card metric-accent">
+            <p class="metric-label">Interactive app</p>
+            <h3>Local Python demo</h3>
+            <p class="metric-detail">Use this site for the portfolio link, then add the live app as a second URL later.</p>
           </article>
         </section>
 
-        <section class="content-grid" id="analytics">
-          <div class="section-heading">
-            <p class="eyebrow">Analytics Story</p>
-            <h2>Precomputed SQL outputs, presented like a product demo.</h2>
-          </div>
-
-          <article class="panel span-8">
+        <section class="operations-grid" id="analytics">
+          <article class="panel panel-full preview-panel">
             <div class="panel-head">
               <div>
-                <p class="label">Workload Trend</p>
+                <p class="panel-label">Meridian Preview</p>
+                <h3>Static Pages site, same hospital product direction</h3>
+              </div>
+              <p class="panel-copy">
+                This screenshot comes from the richer local dashboard and anchors the Pages version to the same Meridian visual system.
+              </p>
+            </div>
+
+            <div class="preview-layout">
+              <img
+                class="preview-image"
+                src="./assets/dashboard-preview.png"
+                alt="Preview of the Meridian Hospital Analytics interactive dashboard"
+              />
+
+              <div class="content-stack">
+                <div class="snapshot-card">
+                  <p class="panel-label">Static showcase angle</p>
+                  <strong>Healthcare operations analytics: schema design, reporting logic, and a clean reporting surface.</strong>
+                </div>
+
+                <div class="snapshot-card">
+                  <p class="panel-label">What this Pages version proves</p>
+                  <ul class="bullet-list">
+                    <li>The project has a professional healthcare-facing visual identity.</li>
+                    <li>The SQL outputs can be presented like a lightweight product surface.</li>
+                    <li>The public portfolio link can stay fast even before the interactive app is hosted.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel panel-wide">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Operations Trend</p>
                 <h3>Daily appointment volume</h3>
               </div>
-              <p class="muted">A fast-loading SVG chart driven from exported query results.</p>
+              <p class="panel-copy">A static SVG chart rendered from exported SQL results.</p>
             </div>
-            <div id="appointments-chart" class="chart"></div>
+            <div id="appointments-chart" class="chart-host"></div>
           </article>
 
-          <article class="panel span-4">
+          <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="label">Most Active Doctors</p>
-                <h3>Top appointment leaders</h3>
+                <p class="panel-label">Top Doctors</p>
+                <h3>Appointment leaders</h3>
               </div>
             </div>
-            <div id="doctors-chart" class="chart compact"></div>
+            <div id="doctors-chart" class="chart-host compact"></div>
           </article>
 
-          <article class="panel span-6">
+          <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="label">Top Patients</p>
-                <h3>Highest total billing</h3>
+                <p class="panel-label">Snapshot</p>
+                <h3 id="top-doctor">Loading...</h3>
               </div>
             </div>
-            <div id="billing-table" class="table-host"></div>
+            <p id="top-doctor-detail" class="panel-copy"></p>
           </article>
 
-          <article class="panel span-6">
+          <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="label">Procedure Mix</p>
+                <p class="panel-label">Procedure Mix</p>
+                <h3 id="top-procedure">Loading...</h3>
+              </div>
+            </div>
+            <p id="top-procedure-detail" class="panel-copy"></p>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Peak Day</p>
+                <h3 id="busiest-day">Loading...</h3>
+              </div>
+            </div>
+            <p id="busiest-day-detail" class="panel-copy"></p>
+          </article>
+
+          <article class="panel panel-wide">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Revenue Story</p>
+                <h3>Highest billed patients</h3>
+              </div>
+              <p class="panel-copy">One more static reporting surface that still feels product-oriented.</p>
+            </div>
+            <div id="billing-table" class="table-wrap"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Procedure Volume</p>
                 <h3>Most common procedures</h3>
               </div>
             </div>
-            <div id="procedures-chart" class="chart compact"></div>
+            <div id="procedures-chart" class="chart-host compact"></div>
           </article>
         </section>
 
-        <section class="dual-section" id="schema">
+        <section class="dual-grid" id="schema">
           <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow">Database Shape</p>
-                <h2>Normalized around patients, providers, encounters, procedures, and billing.</h2>
+                <p class="panel-label">Data Model</p>
+                <h3>Healthcare entities and reporting structure</h3>
               </div>
             </div>
-            <p class="section-copy">
-              The schema already tells a solid healthcare operations story. With a little refinement, it can
-              support scheduling, care delivery, revenue reporting, and eventually role-based application flows.
+            <p class="panel-copy">
+              Even in static form, the project still showcases schema thinking across patients, doctors, appointments, procedures, and billing.
             </p>
-            <img src="./er_diagram.png" alt="Entity relationship diagram for the healthcare management system" />
+            <img
+              class="schema-image"
+              src="./er_diagram.png"
+              alt="Entity relationship diagram for the healthcare management system"
+            />
+          </article>
+
+          <article class="panel" id="roadmap">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Deployment Plan</p>
+                <h3>Fast portfolio link first, interactive host second</h3>
+              </div>
+            </div>
+
+            <div class="content-stack">
+              <div class="snapshot-card">
+                <p class="panel-label">GitHub Pages</p>
+                <strong>Main portfolio button</strong>
+                <p class="panel-copy">
+                  Use <code>main/docs</code> for the instant public showcase. This is the link you want employers or recruiters to hit first.
+                </p>
+              </div>
+
+              <div class="snapshot-card">
+                <p class="panel-label">Interactive app later</p>
+                <strong>Secondary product demo</strong>
+                <p class="panel-copy">
+                  The Python dashboard remains the richer experience for live filters, patient journeys, and demo-admin data entry once you host it separately.
+                </p>
+              </div>
+
+              <div class="snapshot-card">
+                <p class="panel-label">Best next improvements</p>
+                <ul class="bullet-list">
+                  <li>Host the Python dashboard as the secondary live link.</li>
+                  <li>Add one short GIF or walkthrough clip to the repo and portfolio site.</li>
+                  <li>Keep the static Pages site visually aligned with future dashboard updates.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="deployment-grid">
+          <article class="panel">
+            <p class="panel-label">Public URL</p>
+            <h3>GitHub Pages showcase</h3>
+            <p class="panel-copy">
+              <a href="https://joshleh.github.io/healthcare-management-system/" target="_blank" rel="noreferrer">
+                https://joshleh.github.io/healthcare-management-system/
+              </a>
+            </p>
           </article>
 
           <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Best Next Moves</p>
-                <h2>Where this project can go from here</h2>
-              </div>
-            </div>
-            <ol class="roadmap-list">
-              <li>
-                Keep the current static demo for portfolio use, but add a small FastAPI or Flask API only when
-                you want live filters and search.
-              </li>
-              <li>
-                Normalize billing so invoices connect to appointments or procedures directly, which will make the
-                revenue charts more realistic.
-              </li>
-              <li>
-                Add facilities, medications, lab results, and insurance claims to broaden the healthcare model.
-              </li>
-              <li>
-                Introduce authentication and role-based views if you want to evolve this into a true product demo.
-              </li>
-            </ol>
-          </article>
-        </section>
-
-        <section class="future-band" id="roadmap">
-          <div>
-            <p class="eyebrow">Practical Recommendation</p>
-            <h2>Keep the demo static. Expand the platform only when the story needs it.</h2>
-          </div>
-          <div class="future-columns">
-            <div>
-              <p class="label">Best free deployment</p>
-              <p>
-                Host the <code>docs/</code> folder on GitHub Pages for a zero-cost portfolio link. It is instant, CDN-backed, and
-                has no cold start.
-              </p>
-            </div>
-            <div>
-              <p class="label">Secondary live link</p>
-              <p>
-                Keep the interactive hospital dashboard as a second deployment once the static portfolio link is live.
-              </p>
-            </div>
-            <div>
-              <p class="label">Best portfolio angle</p>
-              <p>
-                Position it as healthcare operations analytics: schema design, reporting logic, and a clean
-                lightweight reporting surface.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section class="stats-band">
-          <article>
-            <p class="label">Portfolio URL</p>
-            <h3>github.io showcase</h3>
-            <p class="muted">
-              <a href="https://joshleh.github.io/healthcare-management-system/" target="_blank" rel="noreferrer">https://joshleh.github.io/healthcare-management-system/</a>
+            <p class="panel-label">Repository</p>
+            <h3>Source and README</h3>
+            <p class="panel-copy">
+              <a href="https://github.com/joshleh/healthcare-management-system" target="_blank" rel="noreferrer">
+                github.com/joshleh/healthcare-management-system
+              </a>
             </p>
           </article>
-          <article>
-            <p class="label">Interactive App</p>
-            <h3>Coming next</h3>
-            <p class="muted">
-              Deploy the Python dashboard separately after the GitHub Pages portfolio version is live.
-            </p>
-          </article>
-          <article>
-            <p class="label">Deployment Split</p>
-            <h3>Fast first, interactive second</h3>
-            <p class="muted">Use the static site for the first impression, then add the interactive app as a follow-up link.</p>
+
+          <article class="panel">
+            <p class="panel-label">Hosting split</p>
+            <h3>Static first, interactive next</h3>
+            <p class="panel-copy">Use this polished static site for the first impression and add the live backend app as a second link afterward.</p>
           </article>
         </section>
       </main>
