@@ -1,4 +1,6 @@
-# Healthcare Management System
+# Meridian Hospital Analytics
+
+**Healthcare Operations Analytics Case Study**
 
 An interactive healthcare operations analytics demo built for portfolio presentation. The project now combines a normalized healthcare schema, seeded operational data, a zero-dependency Python backend, and a hospital-style frontend for exploring care delivery, billing, facilities, labs, medications, and patient journeys.
 
@@ -28,7 +30,7 @@ The main experience is the interactive app served by `app.py`.
 
 ### Public link strategy
 
-- Main portfolio button: `https://joshleh.github.io/healthcare-management-system/`
+- Main portfolio button: `https://joshleh.github.io/healthcare-operations-analytics/`
 - Secondary interactive button: add later, after the static portfolio link is live
 
 This repo is now set up for that split:
@@ -58,7 +60,7 @@ The app uses only the Python standard library plus SQLite, so there is nothing t
 - `queries.sql`: portfolio-style analytics queries against the richer model
 - `data/`: source CSV files
 - `web/`: hospital-themed frontend
-- `docs/`: static fallback demo from the earlier pass
+- `docs/`: static portfolio case study for GitHub Pages
 - `er_diagram.png`: original entity relationship diagram
 
 ## Data Model Upgrades
@@ -114,7 +116,7 @@ The repository includes a GitHub Actions workflow that publishes `docs/` to GitH
 Expected URL:
 
 ```text
-https://joshleh.github.io/healthcare-management-system/
+https://joshleh.github.io/healthcare-operations-analytics/
 ```
 
 ### Interactive app later
