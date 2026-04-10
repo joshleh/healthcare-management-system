@@ -4,7 +4,7 @@ import json
 import os
 import sqlite3
 import sys
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -126,11 +126,6 @@ def get_options() -> dict:
     }
 
 
-def next_numeric_id(table_name: str, column_name: str) -> int:
-    row = query_one(f"SELECT COALESCE(MAX({column_name}), 0) + 1 AS next_id FROM {table_name}")
-    return int(row["next_id"])
-
-
 def next_demo_invoice_id() -> str:
     row = query_one(
         """
@@ -195,7 +190,6 @@ def create_demo_encounter(payload: dict) -> dict:
     lab_test_name = str(payload.get("labTestName") or "Basic Metabolic Panel").strip()
     medication_id = payload.get("medicationId")
 
-    doctor = choose_doctor_for_admin(specialty, facility_id)
     insurance_plan = next((plan for plan in INSURANCE_PLANS if plan["id"] == insurance_id), None)
     if insurance_plan is None:
         raise ValueError("The selected insurance plan is invalid.")
@@ -664,10 +658,18 @@ def search_patients(params: dict[str, list[str]]) -> dict:
             FROM Patients p
             WHERE lower(p.FirstName || ' ' || p.LastName) LIKE ?
                OR lower(p.Email) LIKE ?
-            ORDER BY name
+            ORDER BY
+                CASE
+                    WHEN lower(p.FirstName || ' ' || p.LastName) = ? THEN 0
+                    WHEN lower(p.Email) = ? THEN 1
+                    WHEN lower(p.FirstName || ' ' || p.LastName) LIKE ? THEN 2
+                    ELSE 3
+                END,
+                p.PatientID DESC,
+                name
             LIMIT 10
             """,
-            [f"%{query}%", f"%{query}%"],
+            [f"%{query}%", f"%{query}%", query, query, f"{query}%"],
         )
     else:
         rows = query_all(

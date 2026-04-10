@@ -41,6 +41,13 @@ async function init() {
 }
 
 function hydrateFilters(options) {
+  const currentFilterFacility = state.facility;
+  const currentFilterSpecialty = state.specialty;
+  const currentAdminFacility = elements.adminFacility.value;
+  const currentAdminSpecialty = elements.adminSpecialty.value;
+  const currentAdminInsurance = elements.adminInsurance.value;
+  const currentAdminMedication = elements.adminMedication.value;
+
   elements.facilityFilter.innerHTML = '<option value="all">All facilities</option>';
   elements.specialtyFilter.innerHTML = '<option value="all">All specialties</option>';
   elements.adminFacility.innerHTML = "";
@@ -65,6 +72,22 @@ function hydrateFilters(options) {
   options.medications.forEach((medication) => {
     elements.adminMedication.append(new Option(`${medication.name} • ${medication.category}`, String(medication.id)));
   });
+
+  elements.facilityFilter.value = currentFilterFacility || "all";
+  elements.specialtyFilter.value = currentFilterSpecialty || "all";
+
+  if (currentAdminFacility) {
+    elements.adminFacility.value = currentAdminFacility;
+  }
+  if (currentAdminSpecialty) {
+    elements.adminSpecialty.value = currentAdminSpecialty;
+  }
+  if (currentAdminInsurance) {
+    elements.adminInsurance.value = currentAdminInsurance;
+  }
+  if (currentAdminMedication) {
+    elements.adminMedication.value = currentAdminMedication;
+  }
 }
 
 function hydrateFeaturedPatients(patients) {
