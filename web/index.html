@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Operations Analytics</title>
+    <meta
+      name="description"
+      content="Interactive healthcare operations analytics demo with live filters, patient journeys, billing integrity, labs, and care delivery signals."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-main">
+          <div>
+            <p class="sidebar-kicker">Healthcare Operations</p>
+            <h1>Meridian Hospital Analytics</h1>
+            <p class="sidebar-copy">
+              An interactive hospital-style demo for care delivery, claims integrity, facility operations, and patient timelines.
+            </p>
+          </div>
+
+          <nav class="sidebar-nav" aria-label="Sections">
+            <a href="#command-center">Command Center</a>
+            <a href="#admin-panel">Demo Admin</a>
+            <a href="#operations-grid">Operations Grid</a>
+            <a href="#patient-journey">Patient Journey</a>
+          </nav>
+
+          <div class="sidebar-actions">
+            <a class="sidebar-button" href="#admin-panel">Add demo encounter</a>
+            <button id="sidebar-reset" class="sidebar-button sidebar-button-secondary" type="button">Reset filters</button>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-panel">
+            <p class="panel-label">Model upgrades</p>
+            <ul>
+              <li>Billing linked to appointments and procedures</li>
+              <li>Facilities, insurance, medications, and lab results added</li>
+              <li>Interactive API-backed views with no external dependencies</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-header" id="command-center">
+          <div>
+            <p class="eyebrow">Clinical Command Center</p>
+            <h2>A hospital-style command center for care delivery, revenue, and patient activity.</h2>
+            <p class="header-copy">
+              Built as an internal operations dashboard, this demo keeps scheduling, billing, lab alerts, and patient context in a single workspace.
+            </p>
+          </div>
+
+          <div class="status-card">
+            <span class="status-dot"></span>
+            <div>
+              <p class="panel-label">Reference date</p>
+              <strong id="reference-date">Loading...</strong>
+            </div>
+          </div>
+        </header>
+
+        <section class="toolbar">
+          <div class="toolbar-note">
+            <p class="panel-label">Demo Mode</p>
+            <p>
+              Seeded hospital data powers this dashboard. Narrow filter combinations can legitimately return empty results, so the interface should guide the user instead of just going blank.
+            </p>
+          </div>
+
+          <div class="toolbar-actions">
+            <button id="reset-filters" class="ghost-button" type="button">Reset filters</button>
+            <p class="toolbar-meta">Use featured patients or reset the view whenever a filtered slice has no records.</p>
+          </div>
+        </section>
+
+        <section class="filters">
+          <label>
+            <span>Facility</span>
+            <select id="facility-filter">
+              <option value="all">All facilities</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Specialty</span>
+            <select id="specialty-filter">
+              <option value="all">All specialties</option>
+            </select>
+          </label>
+
+          <label class="search-field">
+            <span>Patient Search</span>
+            <input id="patient-search" type="search" placeholder="Search name or email" autocomplete="off" />
+            <div id="patient-results" class="search-results"></div>
+          </label>
+        </section>
+
+        <section class="admin-panel panel" id="admin-panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-label">Demo Admin</p>
+              <h3>Add a seeded encounter to the live demo</h3>
+            </div>
+            <p class="panel-copy">
+              Use this to populate thin slices of the dashboard. Entries are written to the local demo database and reset when the app restarts.
+            </p>
+          </div>
+
+          <form id="admin-form" class="admin-form">
+            <label>
+              <span>First name</span>
+              <input name="firstName" type="text" placeholder="Jordan" required />
+            </label>
+            <label>
+              <span>Last name</span>
+              <input name="lastName" type="text" placeholder="Bennett" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" placeholder="jordan.bennett@demo.local" />
+            </label>
+            <label>
+              <span>Date of birth</span>
+              <input name="dateOfBirth" type="date" value="1989-01-15" required />
+            </label>
+            <label>
+              <span>Sex</span>
+              <select name="sex">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Non-binary">Non-binary</option>
+              </select>
+            </label>
+            <label>
+              <span>City</span>
+              <input name="city" type="text" value="San Francisco" required />
+            </label>
+            <label>
+              <span>State</span>
+              <input name="stateCode" type="text" value="CA" maxlength="2" required />
+            </label>
+            <label>
+              <span>Facility</span>
+              <select id="admin-facility" name="facilityId" required></select>
+            </label>
+            <label>
+              <span>Specialty</span>
+              <select id="admin-specialty" name="specialty" required></select>
+            </label>
+            <label>
+              <span>Visit type</span>
+              <select name="visitType">
+                <option value="Specialty Consultation">Specialty Consultation</option>
+                <option value="Chronic Care Review">Chronic Care Review</option>
+                <option value="Procedure Follow-up">Procedure Follow-up</option>
+                <option value="Wellness Visit">Wellness Visit</option>
+                <option value="Acute Evaluation">Acute Evaluation</option>
+              </select>
+            </label>
+            <label>
+              <span>Appointment date</span>
+              <input name="appointmentDate" type="date" required />
+            </label>
+            <label>
+              <span>Appointment time</span>
+              <input name="appointmentTime" type="time" value="09:00" required />
+            </label>
+            <label>
+              <span>Status</span>
+              <select name="status">
+                <option value="Scheduled">Scheduled</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </label>
+            <label>
+              <span>Procedure</span>
+              <input name="procedureName" type="text" value="Clinical follow-up" required />
+            </label>
+            <label>
+              <span>Insurance plan</span>
+              <select id="admin-insurance" name="insuranceId" required></select>
+            </label>
+            <label>
+              <span>Bill amount</span>
+              <input name="billAmount" type="number" min="0" step="100" value="8500" />
+            </label>
+            <label>
+              <span>Medication</span>
+              <select id="admin-medication" name="medicationId">
+                <option value="">None</option>
+              </select>
+            </label>
+            <label>
+              <span>Lab alert</span>
+              <select name="labFlag">
+                <option value="None">None</option>
+                <option value="Attention">Attention</option>
+                <option value="Critical">Critical</option>
+              </select>
+            </label>
+            <label>
+              <span>Lab test name</span>
+              <input name="labTestName" type="text" value="Basic Metabolic Panel" />
+            </label>
+
+            <div class="admin-actions">
+              <button class="ghost-button primary-button" type="submit">Create demo encounter</button>
+              <p id="admin-feedback" class="toolbar-meta">Add a patient encounter to create real records for filters, revenue, and patient journey views.</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="metric-row">
+          <article class="metric-card">
+            <p class="metric-label">Appointments</p>
+            <h3 id="metric-appointments">--</h3>
+            <p id="metric-scheduled" class="metric-detail"></p>
+          </article>
+
+          <article class="metric-card">
+            <p class="metric-label">Gross Revenue</p>
+            <h3 id="metric-revenue">--</h3>
+            <p id="metric-invoice" class="metric-detail"></p>
+          </article>
+
+          <article class="metric-card">
+            <p class="metric-label">Insurance Coverage</p>
+            <h3 id="metric-coverage">--</h3>
+            <p class="metric-detail">Average covered portion of billed charges</p>
+          </article>
+
+          <article class="metric-card metric-alert">
+            <p class="metric-label">Abnormal Labs</p>
+            <h3 id="metric-alerts">--</h3>
+            <p id="metric-highlight" class="metric-detail"></p>
+          </article>
+        </section>
+
+        <section class="operations-grid" id="operations-grid">
+          <article class="panel panel-wide">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Revenue Cycle</p>
+                <h3>Monthly billed revenue</h3>
+              </div>
+              <p class="panel-copy">Invoice totals linked to actual appointments and procedure pathways.</p>
+            </div>
+            <div id="revenue-chart" class="chart-host"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Department Load</p>
+                <h3>Visits by specialty</h3>
+              </div>
+            </div>
+            <div id="department-chart" class="chart-host compact"></div>
+          </article>
+
+          <article class="panel panel-full">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Payer Mix</p>
+                <h3>Revenue by payer</h3>
+              </div>
+            </div>
+            <div id="payer-mix" class="payer-list"></div>
+          </article>
+
+          <article class="panel panel-full">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Schedule Lens</p>
+                <h3>Upcoming and recent appointments</h3>
+              </div>
+              <p class="panel-copy">Shows upcoming activity first, then recent care events when needed.</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Visit Type</th>
+                    <th>Status</th>
+                    <th>Facility</th>
+                  </tr>
+                </thead>
+                <tbody id="schedule-table"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel panel-full">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Lab Escalations</p>
+                <h3>Attention and critical results</h3>
+              </div>
+            </div>
+            <div id="lab-alerts" class="alert-list"></div>
+          </article>
+        </section>
+
+        <section class="journey-section" id="patient-journey">
+          <div class="journey-header">
+            <div>
+              <p class="eyebrow">Patient Journey</p>
+              <h2>Search a patient and follow visits, procedures, labs, medications, and billing over time.</h2>
+            </div>
+            <div id="featured-patients" class="featured-patients"></div>
+          </div>
+
+          <div class="journey-grid">
+            <article class="panel patient-card">
+              <div id="patient-profile" class="patient-profile"></div>
+              <div class="patient-stats">
+                <div>
+                  <span id="patient-stat-appointments">--</span>
+                  <small>appointments</small>
+                </div>
+                <div>
+                  <span id="patient-stat-procedures">--</span>
+                  <small>procedures</small>
+                </div>
+                <div>
+                  <span id="patient-stat-billed">--</span>
+                  <small>billed</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-label">Timeline</p>
+                  <h3>Care and revenue events</h3>
+                </div>
+              </div>
+              <div id="patient-timeline" class="timeline"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

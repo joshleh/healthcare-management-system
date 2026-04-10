@@ -1,72 +1,123 @@
-# Healthcare Management System (SQL Project)
+# Healthcare Management System
 
-This project is a relational database system designed to manage patients, doctors, appointments, medical procedures, and billing data in a healthcare environment. Built entirely using SQL, it features a normalized schema, real-world query examples, and testable data flows that simulate hospital operations.
+An interactive healthcare operations analytics demo built for portfolio presentation. The project now combines a normalized healthcare schema, seeded operational data, a zero-dependency Python backend, and a hospital-style frontend for exploring care delivery, billing, facilities, labs, medications, and patient journeys.
 
-[Live Dashboard on Streamlit](https://healthcare-management-system-joshleh.streamlit.app)
+## What It Is Now
 
-Dataset used: https://www.kaggle.com/datasets/anouskaabhisikta/healthcare-management-system
+This is no longer just a SQL exercise or a CSV viewer. It is positioned as a lightweight hospital analytics product demo with:
 
----
+- live API-backed filtering
+- facility-aware scheduling and revenue views
+- billing linked directly to appointments and procedures
+- insurance coverage and patient financial exposure
+- medications and prescription history
+- lab result monitoring with abnormal alert views
+- patient timeline inspection for care journey storytelling
+
+## Demo Experience
+
+The main experience is the interactive app served by `app.py`.
+
+### Public link strategy
+
+- Main portfolio button: `https://joshleh.github.io/healthcare-management-system/`
+- Secondary interactive button: add later, after the static portfolio link is live
+
+This repo is now set up for that split:
+
+- GitHub Pages serves the `docs/` portfolio showcase
+- The interactive Python dashboard remains ready for a second deployment later
+
+### Run locally
+
+```bash
+python3 app.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+The app uses only the Python standard library plus SQLite, so there is nothing to install to run the demo locally.
 
 ## Project Structure
 
-- `schema.sql`: SQL DDL file to create all database tables
-- `queries.sql`: Practical queries for reporting, analytics, and tracking
-- `insert_data.sql`: Insert sample/mock data here
+- `app.py`: zero-dependency web server and JSON API
+- `backend/bootstrap.py`: reproducible database seeding and synthetic healthcare enrichment
+- `schema.sql`: upgraded relational schema with facilities, insurance, labs, medications, and invoices
+- `queries.sql`: portfolio-style analytics queries against the richer model
+- `data/`: source CSV files
+- `web/`: hospital-themed frontend
+- `docs/`: static fallback demo from the earlier pass
+- `er_diagram.png`: original entity relationship diagram
 
----
+## Data Model Upgrades
 
-## Schema Overview
+The project was expanded from the original patient / doctor / appointment / procedure / billing model into a more realistic hospital analytics shape:
 
-| Table               | Description                                     |
-|--------------------|-------------------------------------------------|
-| `Patients`          | Stores personal information about patients      |
-| `Doctors`           | Contains doctor profiles and contact info       |
-| `Appointments`      | Connects patients and doctors for a date/time   |
-| `MedicalProcedures` | Procedures linked to appointments               |
-| `Billing`           | Tracks charges per patient                      |
+- `Facilities`: operational sites and capacity context
+- `InsurancePlans` and `PatientCoverage`: payer mix and coverage modeling
+- `Appointments`: now linked to facilities and visit types
+- `MedicalProcedures`: tied directly to encounters with acuity and family labels
+- `Medications` and `Prescriptions`: treatment layer
+- `LabResults`: diagnostic monitoring and alerting
+- `Invoices` and `InvoiceLineItems`: billing normalized around appointments and procedures
 
-![ER Diagram](er_diagram.png)
+## Portfolio Angle
 
----
+The strongest framing for this project is:
 
-## Key Queries Included
+**Healthcare operations analytics: schema design, reporting logic, and a clean lightweight reporting surface.**
 
-| # | Description                                         |
-|---|-----------------------------------------------------|
-| 1 | List all appointments for a specific patient        |
-| 2 | Daily appointment counts                            |
-| 3 | Most active doctors by number of appointments       |
-| 4 | Total billing per patient                           |
-| 5 | Most common medical procedures                      |
-| 6 | Upcoming appointments (future dates only)           |
-| 7 | Patients who’ve seen more than one doctor           |
-| 8 | Doctor billing performance                          |
-| 9 | Unusually high billing items                        |
-| 10| Billing grouped by procedure and appointment date   |
+That story is reflected in the interface:
 
----
+- command-center overview metrics
+- revenue cycle tracking
+- department load analysis
+- payer mix visibility
+- lab escalation feed
+- searchable patient journey timeline
 
-## Tools Used
+## SQL Workflow
 
-- PostgreSQL (recommended)
-- DBeaver or pgAdmin (for SQL execution & ERD)
-- Python (optional, for CSV preprocessing)
-- dbdiagram.io or drawSQL (for ER diagram)
+If you want to inspect the model and reporting layer directly:
 
----
+1. Review `schema.sql`
+2. Review `queries.sql`
+3. Run `python3 app.py` to generate the SQLite demo database automatically in `runtime/`
 
-## How to Use
+## Hosting Notes
 
-1. Load `schema.sql` into your SQL environment to create the tables.
-2. Use `insert_data.sql` to load test data.
-3. Run `queries.sql` to see sample insights and reports.
+- Free to run locally: yes
+- Fast to load: yes, because the app uses a small SQLite database and a lightweight frontend
+- Public hosting setup included: yes, via GitHub Pages for `docs/` and Render for the interactive app
 
----
+For a purely static fallback, the `docs/` folder can still be hosted on GitHub Pages.
 
-## Future Improvements
+## Deployment Setup Included
 
-- Add user authentication (admin vs. patient)
-- Include lab results & medications tables
+### GitHub Pages
 
+The repository includes a GitHub Actions workflow that publishes `docs/` to GitHub Pages.
 
+Expected URL:
+
+```text
+https://joshleh.github.io/healthcare-management-system/
+```
+
+### Interactive app later
+
+The interactive Python dashboard is ready to deploy separately after the GitHub Pages portfolio link is in place.
+
+For now, the priority is the static showcase:
+
+- fast first impression
+- zero cold starts
+- clean portfolio URL
+
+## Dataset Source
+
+[Kaggle healthcare management system dataset](https://www.kaggle.com/datasets/anouskaabhisikta/healthcare-management-system)

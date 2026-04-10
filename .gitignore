@@ -1,0 +1,4 @@
+__pycache__/
+runtime/
+.DS_Store
+.playwright-cli/
