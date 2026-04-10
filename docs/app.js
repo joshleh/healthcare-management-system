@@ -79,9 +79,9 @@ function hydrateHighlights() {
   setText("#top-doctor", topDoctor.name);
   setText("#top-doctor-detail", `${topDoctor.specialty} • ${topDoctor.total} appointments`);
   setText("#top-procedure", topProcedure.name);
-  setText("#top-procedure-detail", `${topProcedure.total} completed records`);
+  setText("#top-procedure-detail", `${topProcedure.total} occurrences in the reporting export`);
   setText("#busiest-day", formatDate(busiestDay.date));
-  setText("#busiest-day-detail", `${busiestDay.total} appointments recorded`);
+  setText("#busiest-day-detail", `${busiestDay.total} appointments in the busiest operating window`);
 }
 
 async function loadCsv(path) {
@@ -311,9 +311,9 @@ function renderLoadError() {
   });
 
   setText("#top-doctor", "Data unavailable");
-  setText("#top-doctor-detail", "Serve the docs folder over HTTP to load CSV files.");
+  setText("#top-doctor-detail", "The static data exports could not be loaded in this browsing context.");
   setText("#top-procedure", "Data unavailable");
-  setText("#top-procedure-detail", "Static hosts like GitHub Pages work well here.");
+  setText("#top-procedure-detail", "Try reopening the showcase from its hosted site.");
   setText("#busiest-day", "Data unavailable");
-  setText("#busiest-day-detail", "Local file opens block fetch requests in most browsers.");
+  setText("#busiest-day-detail", "Some browsers restrict local file access for data-driven sections.");
 }
