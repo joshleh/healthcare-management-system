@@ -87,6 +87,14 @@ def get_options() -> dict:
         ORDER BY Specialization
         """
     )
+    facility_specialties = query_all(
+        """
+        SELECT DISTINCT a.FacilityID AS facilityId, d.Specialization AS name
+        FROM Appointments a
+        JOIN Doctors d ON d.DoctorID = a.DoctorID
+        ORDER BY a.FacilityID, d.Specialization
+        """
+    )
     featured_patients = query_all(
         """
         SELECT
@@ -101,10 +109,16 @@ def get_options() -> dict:
         """
     )
 
+    specialties_by_facility: dict[str, list[dict[str, str]]] = {}
+    for row in facility_specialties:
+        facility_key = str(row["facilityId"])
+        specialties_by_facility.setdefault(facility_key, []).append({"name": row["name"]})
+
     return {
         "referenceDate": REFERENCE_DATE.isoformat(),
         "facilities": facilities,
         "specialties": specialties,
+        "specialtiesByFacility": specialties_by_facility,
         "insurancePlans": [
             {
                 "id": plan["id"],

@@ -3,6 +3,7 @@ const state = {
   specialty: "all",
   patientId: "",
   referenceDate: "",
+  options: null,
 };
 
 const DEMO_SCENARIOS = {
@@ -102,6 +103,7 @@ init();
 async function init() {
   try {
     const options = await fetchJson("/api/options");
+    state.options = options;
     hydrateFilters(options);
     hydrateFeaturedPatients(options.featuredPatients);
     if (options.featuredPatients[0]) {
@@ -127,7 +129,6 @@ function hydrateFilters(options) {
   const currentAdminMedication = elements.adminMedication.value;
 
   elements.facilityFilter.innerHTML = '<option value="all">All facilities</option>';
-  elements.specialtyFilter.innerHTML = '<option value="all">All specialties</option>';
   elements.adminFacility.innerHTML = "";
   elements.adminSpecialty.innerHTML = "";
   elements.adminInsurance.innerHTML = "";
@@ -139,7 +140,6 @@ function hydrateFilters(options) {
   });
 
   options.specialties.forEach((specialty) => {
-    elements.specialtyFilter.append(new Option(specialty.name, specialty.name));
     elements.adminSpecialty.append(new Option(specialty.name, specialty.name));
   });
 
@@ -152,7 +152,7 @@ function hydrateFilters(options) {
   });
 
   elements.facilityFilter.value = currentFilterFacility || "all";
-  elements.specialtyFilter.value = currentFilterSpecialty || "all";
+  populateDashboardSpecialties(options, currentFilterFacility || "all", currentFilterSpecialty || "all");
 
   if (currentAdminFacility) {
     elements.adminFacility.value = currentAdminFacility;
@@ -166,6 +166,27 @@ function hydrateFilters(options) {
   if (currentAdminMedication) {
     elements.adminMedication.value = currentAdminMedication;
   }
+}
+
+function populateDashboardSpecialties(options, facilityId, preferredValue) {
+  const availableSpecialties = getAvailableSpecialties(options, facilityId);
+  const availableNames = new Set(["all", ...availableSpecialties.map((specialty) => specialty.name)]);
+
+  elements.specialtyFilter.innerHTML = '<option value="all">All specialties</option>';
+  availableSpecialties.forEach((specialty) => {
+    elements.specialtyFilter.append(new Option(specialty.name, specialty.name));
+  });
+
+  state.specialty = availableNames.has(preferredValue) ? preferredValue : "all";
+  elements.specialtyFilter.value = state.specialty;
+}
+
+function getAvailableSpecialties(options, facilityId) {
+  if (!facilityId || facilityId === "all") {
+    return options.specialties;
+  }
+
+  return options.specialtiesByFacility?.[facilityId] || [];
 }
 
 function hydrateFeaturedPatients(patients) {
@@ -183,6 +204,9 @@ function hydrateFeaturedPatients(patients) {
 function bindEvents() {
   elements.facilityFilter.addEventListener("change", async (event) => {
     state.facility = event.target.value;
+    if (state.options) {
+      populateDashboardSpecialties(state.options, state.facility, state.specialty);
+    }
     await loadDashboard();
   });
 
@@ -291,6 +315,7 @@ async function submitAdminForm() {
 
 async function refreshOptionsAndDashboard() {
   const options = await fetchJson("/api/options");
+  state.options = options;
   state.referenceDate = options.referenceDate;
   hydrateFilters(options);
   hydrateFeaturedPatients(options.featuredPatients);
