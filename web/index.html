@@ -24,9 +24,9 @@
 
           <nav class="sidebar-nav" aria-label="Sections">
             <a href="#command-center">Command Center</a>
-            <a href="#admin-panel">Demo Admin</a>
             <a href="#operations-grid">Operations Grid</a>
             <a href="#patient-journey">Patient Journey</a>
+            <a href="#admin-panel">Demo Admin</a>
           </nav>
 
           <div class="sidebar-actions">
@@ -100,137 +100,6 @@
             <input id="patient-search" type="search" placeholder="Search name or email" autocomplete="off" />
             <div id="patient-results" class="search-results"></div>
           </label>
-        </section>
-
-        <section class="admin-panel panel" id="admin-panel">
-          <div class="panel-head">
-            <div>
-              <p class="panel-label">Demo Admin</p>
-              <h3>Add a seeded encounter to the live demo</h3>
-            </div>
-            <p class="panel-copy">
-              Use this to populate thin slices of the dashboard. Entries are written to the local demo database and reset when the app restarts.
-            </p>
-          </div>
-
-          <div class="scenario-strip" id="admin-scenarios">
-            <button class="scenario-card" type="button" data-scenario="cardiology">
-              <strong>Cardiology follow-up</strong>
-              <span>Confirmed outpatient visit with a BNP attention flag and payer-linked charge.</span>
-            </button>
-            <button class="scenario-card" type="button" data-scenario="oncology">
-              <strong>Oncology infusion review</strong>
-              <span>Completed cancer center encounter with a critical lab escalation and higher billing total.</span>
-            </button>
-            <button class="scenario-card" type="button" data-scenario="womens-health">
-              <strong>Women's imaging pathway</strong>
-              <span>Scheduled pavilion visit with medication follow-up and a lighter wellness billing profile.</span>
-            </button>
-          </div>
-
-          <form id="admin-form" class="admin-form">
-            <label>
-              <span>First name</span>
-              <input name="firstName" type="text" placeholder="Jordan" required />
-            </label>
-            <label>
-              <span>Last name</span>
-              <input name="lastName" type="text" placeholder="Bennett" required />
-            </label>
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" placeholder="jordan.bennett@demo.local" />
-            </label>
-            <label>
-              <span>Date of birth</span>
-              <input name="dateOfBirth" type="date" value="1989-01-15" required />
-            </label>
-            <label>
-              <span>Sex</span>
-              <select name="sex">
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Non-binary">Non-binary</option>
-              </select>
-            </label>
-            <label>
-              <span>City</span>
-              <input name="city" type="text" value="San Francisco" required />
-            </label>
-            <label>
-              <span>State</span>
-              <input name="stateCode" type="text" value="CA" maxlength="2" required />
-            </label>
-            <label>
-              <span>Facility</span>
-              <select id="admin-facility" name="facilityId" required></select>
-            </label>
-            <label>
-              <span>Specialty</span>
-              <select id="admin-specialty" name="specialty" required></select>
-            </label>
-            <label>
-              <span>Visit type</span>
-              <select name="visitType">
-                <option value="Specialty Consultation">Specialty Consultation</option>
-                <option value="Chronic Care Review">Chronic Care Review</option>
-                <option value="Procedure Follow-up">Procedure Follow-up</option>
-                <option value="Wellness Visit">Wellness Visit</option>
-                <option value="Acute Evaluation">Acute Evaluation</option>
-              </select>
-            </label>
-            <label>
-              <span>Appointment date</span>
-              <input name="appointmentDate" type="date" required />
-            </label>
-            <label>
-              <span>Appointment time</span>
-              <input name="appointmentTime" type="time" value="09:00" required />
-            </label>
-            <label>
-              <span>Status</span>
-              <select name="status">
-                <option value="Scheduled">Scheduled</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </label>
-            <label>
-              <span>Procedure</span>
-              <input name="procedureName" type="text" value="Clinical follow-up" required />
-            </label>
-            <label>
-              <span>Insurance plan</span>
-              <select id="admin-insurance" name="insuranceId" required></select>
-            </label>
-            <label>
-              <span>Bill amount</span>
-              <input name="billAmount" type="number" min="0" step="100" value="8500" />
-            </label>
-            <label>
-              <span>Medication</span>
-              <select id="admin-medication" name="medicationId">
-                <option value="">None</option>
-              </select>
-            </label>
-            <label>
-              <span>Lab alert</span>
-              <select name="labFlag">
-                <option value="None">None</option>
-                <option value="Attention">Attention</option>
-                <option value="Critical">Critical</option>
-              </select>
-            </label>
-            <label>
-              <span>Lab test name</span>
-              <input name="labTestName" type="text" value="Basic Metabolic Panel" />
-            </label>
-
-            <div class="admin-actions">
-              <button class="ghost-button primary-button" type="submit">Create demo encounter</button>
-              <p id="admin-feedback" class="toolbar-meta">Add a patient encounter to create real records for filters, revenue, and patient journey views.</p>
-            </div>
-          </form>
         </section>
 
         <section class="metric-row">
@@ -365,6 +234,137 @@
               <div id="patient-timeline" class="timeline"></div>
             </article>
           </div>
+        </section>
+
+        <section class="admin-panel panel" id="admin-panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-label">Demo Admin</p>
+              <h3>Add a seeded encounter to the live demo</h3>
+            </div>
+            <p class="panel-copy">
+              Use this to populate thin slices of the dashboard. Entries are written to the local demo database and reset when the app restarts.
+            </p>
+          </div>
+
+          <div class="scenario-strip" id="admin-scenarios">
+            <button class="scenario-card" type="button" data-scenario="cardiology">
+              <strong>Cardiology follow-up</strong>
+              <span>Confirmed outpatient visit with a BNP attention flag and payer-linked charge.</span>
+            </button>
+            <button class="scenario-card" type="button" data-scenario="oncology">
+              <strong>Oncology infusion review</strong>
+              <span>Completed cancer center encounter with a critical lab escalation and higher billing total.</span>
+            </button>
+            <button class="scenario-card" type="button" data-scenario="womens-health">
+              <strong>Women's imaging pathway</strong>
+              <span>Scheduled pavilion visit with medication follow-up and a lighter wellness billing profile.</span>
+            </button>
+          </div>
+
+          <form id="admin-form" class="admin-form">
+            <label>
+              <span>First name</span>
+              <input name="firstName" type="text" placeholder="Jordan" required />
+            </label>
+            <label>
+              <span>Last name</span>
+              <input name="lastName" type="text" placeholder="Bennett" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" placeholder="jordan.bennett@demo.local" />
+            </label>
+            <label>
+              <span>Date of birth</span>
+              <input name="dateOfBirth" type="date" value="1989-01-15" required />
+            </label>
+            <label>
+              <span>Sex</span>
+              <select name="sex">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Non-binary">Non-binary</option>
+              </select>
+            </label>
+            <label>
+              <span>City</span>
+              <input name="city" type="text" value="San Francisco" required />
+            </label>
+            <label>
+              <span>State</span>
+              <input name="stateCode" type="text" value="CA" maxlength="2" required />
+            </label>
+            <label>
+              <span>Facility</span>
+              <select id="admin-facility" name="facilityId" required></select>
+            </label>
+            <label>
+              <span>Specialty</span>
+              <select id="admin-specialty" name="specialty" required></select>
+            </label>
+            <label>
+              <span>Visit type</span>
+              <select name="visitType">
+                <option value="Specialty Consultation">Specialty Consultation</option>
+                <option value="Chronic Care Review">Chronic Care Review</option>
+                <option value="Procedure Follow-up">Procedure Follow-up</option>
+                <option value="Wellness Visit">Wellness Visit</option>
+                <option value="Acute Evaluation">Acute Evaluation</option>
+              </select>
+            </label>
+            <label>
+              <span>Appointment date</span>
+              <input name="appointmentDate" type="date" required />
+            </label>
+            <label>
+              <span>Appointment time</span>
+              <input name="appointmentTime" type="time" value="09:00" required />
+            </label>
+            <label>
+              <span>Status</span>
+              <select name="status">
+                <option value="Scheduled">Scheduled</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </label>
+            <label>
+              <span>Procedure</span>
+              <input name="procedureName" type="text" value="Clinical follow-up" required />
+            </label>
+            <label>
+              <span>Insurance plan</span>
+              <select id="admin-insurance" name="insuranceId" required></select>
+            </label>
+            <label>
+              <span>Bill amount</span>
+              <input name="billAmount" type="number" min="0" step="100" value="8500" />
+            </label>
+            <label>
+              <span>Medication</span>
+              <select id="admin-medication" name="medicationId">
+                <option value="">None</option>
+              </select>
+            </label>
+            <label>
+              <span>Lab alert</span>
+              <select name="labFlag">
+                <option value="None">None</option>
+                <option value="Attention">Attention</option>
+                <option value="Critical">Critical</option>
+              </select>
+            </label>
+            <label>
+              <span>Lab test name</span>
+              <input name="labTestName" type="text" value="Basic Metabolic Panel" />
+            </label>
+
+            <div class="admin-actions">
+              <button class="ghost-button primary-button" type="submit">Create demo encounter</button>
+              <p id="admin-feedback" class="toolbar-meta">Add a patient encounter to create real records for filters, revenue, and patient journey views.</p>
+            </div>
+          </form>
         </section>
       </main>
     </div>
